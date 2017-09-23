@@ -1,15 +1,23 @@
 from django.shortcuts import render, HttpResponse, redirect
 # the index function is called when root is visited
 def blogsindex(request):
-	response = "placeholder to later display all the list of blogs"
-	return HttpResponse(response)
+	return render(request, "blogs/index.html")
 
 def new(request):
 	response = "placeholder to later display new blogs"
 	return HttpResponse(response)
 
 def create(request):
-	return redirect('/blogs')
+	if request.method == "POST":
+		print "*"*50
+		print request.POST
+		print request.POST['name']
+		print request.POST['desc']
+		request.session['name'] = request.POST['name']
+		print "*"*50
+		return redirect("/blogs")
+	else:
+		return redirect("/blogs")
 
 def show(request, id):
 	response = "placeholder to later display the id: " + id
